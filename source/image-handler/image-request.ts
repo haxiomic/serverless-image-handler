@@ -208,9 +208,8 @@ export class ImageRequest {
         if (q.width != null) resize.width = parseInt(q.width);
         if (q.height != null) resize.height = parseInt(q.height);
         if (q.fit != null) resize.fit = q.fit;
-        if (Object.keys(resize).length > 0) {
-          edits.resize = resize;
-        }
+        edits.resize = resize;
+
         // smart crop
         if (q.smartCrop != null) {
           let smartCrop: {[key: string]: any} = {};
