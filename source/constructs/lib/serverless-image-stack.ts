@@ -114,7 +114,7 @@ export class ServerlessImageHandlerStack extends Stack {
     const solutionMapping = new CfnMapping(this, 'Solution', {
       mapping: {
         Config: {
-          AnonymousUsage: 'Yes',
+          AnonymousUsage: 'No',
           SolutionId: props.solutionId,
           Version: props.solutionVersion,
           S3BucketPrefix: props.solutionAssetHostingBucketNamePrefix,
@@ -125,7 +125,7 @@ export class ServerlessImageHandlerStack extends Stack {
     });
 
     const anonymousUsage = `${solutionMapping.findInMap('Config', 'AnonymousUsage')}`;
-    const sourceCodeBucketName = `${solutionMapping.findInMap('Config', 'S3BucketPrefix')}-${Aws.REGION}`;
+    const sourceCodeBucketName = `${solutionMapping.findInMap('Config', 'S3BucketPrefix')}`;
     const sourceCodeKeyPrefix = solutionMapping.findInMap('Config', 'S3KeyPrefix');
 
     const solutionConstructProps: SolutionConstructProps = {
