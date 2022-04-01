@@ -101,8 +101,8 @@ export class BackEnd extends Construct {
         headers: ['origin', 'accept']
       },
       queryStringBehavior: {
-        behavior: 'whitelist',
-        queryStrings: ['signature']
+        behavior: 'all', //'whitelist',
+        // queryStrings: ['signature']
       }
     });
 
@@ -113,8 +113,8 @@ export class BackEnd extends Construct {
         headers: ['origin', 'accept']
       },
       queryStringBehavior: {
-        behavior: 'whitelist',
-        queryStrings: ['signature']
+        behavior: 'all', //'whitelist',
+        // queryStrings: ['signature']
       }
     });
 
