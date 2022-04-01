@@ -246,7 +246,7 @@ export class ImageRequest {
    */
   public parseImageKey(event: ImageHandlerEvent, requestType: RequestTypes): string {
     if (requestType === RequestTypes.QUERY) {
-      let path = event.path;
+      let path = event.path.substring(1);
       // strip query string (not sure if there can be, but there's no spec...)
       const qsIdx = path.indexOf('?');
       if (qsIdx !== -1) {
