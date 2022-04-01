@@ -4,7 +4,7 @@
 import S3 from 'aws-sdk/clients/s3';
 import { createHmac } from 'crypto';
 
-import { DefaultImageRequest, ImageEdits, ImageFormatTypes, ImageHandlerError, ImageHandlerEvent, ImageRequestInfo, Headers, RequestTypes, StatusCodes } from './lib';
+import { DefaultImageRequest, ImageEdits, ImageFormatTypes, ImageHandlerError, ImageHandlerEvent, ImageRequestInfo, Headers, RequestTypes, StatusCodes, ImageFitTypes } from './lib';
 import { SecretProvider } from './secret-provider';
 import { ThumborMapper } from './thumbor-mapper';
 
@@ -205,15 +205,30 @@ export class ImageRequest {
             "alpha": 0
           }
         };
-        if (q.width != null) resize.width = parseInt(q.width);
-        if (q.height != null) resize.height = parseInt(q.height);
-        if (q.fit != null) resize.fit = q.fit;
+        if (q.width != null) {
+          let i = parseInt(q.width);
+          if (isFinite(i)) {
+            resize.width = Math.max(Math.min(i, 8192), 1);
+          }
+        }
+        if (q.height != null) {
+          let i = parseInt(q.height);
+          if (isFinite(i)) {
+            resize.height = Math.max(Math.min(i, 8192), 1);
+          }
+        }
+        if (q.fit != null && Object.values(ImageFitTypes).includes(q.fit as any)) resize.fit = q.fit;
         edits.resize = resize;
 
         // smart crop
         if (q.smartCrop != null) {
           let smartCrop: {[key: string]: any} = {};
-          if (q.faceIndex != null) smartCrop.faceIndex = parseInt(q.faceIndex);
+          if (q.faceIndex != null) {
+            let i = parseInt(q.faceIndex);
+            if (isFinite(i)) {
+              smartCrop.faceIndex = Math.max(i, 0);
+            }
+          }
           edits.smartCrop = smartCrop;
         }
       }
