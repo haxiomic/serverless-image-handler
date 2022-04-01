@@ -7,7 +7,9 @@
 cd deployment
 ./build-s3-dist.sh avimaker-dev custom-sih v6.0.0-custom
 ```
-- Copy files into S3 bucket "avimaker-dev" (as above)
+- Copy files into S3 bucket "avimaker-dev" (as above), into the path: avimaker-dev/custom-sih/v6.0.0-custon/
+
+(change version as you like)
 
 ----
 
