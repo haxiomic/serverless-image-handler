@@ -98,7 +98,7 @@ function getPreviewImage() {
             urlParams.height = request.edits.resize.height;
         }
         if (request.edits.resize.fit != null) {
-            urlParams.height = request.edits.resize.fit;
+            urlParams.fit = request.edits.resize.fit;
         }
     }
     if (request.edits.smartCrop != null) {
