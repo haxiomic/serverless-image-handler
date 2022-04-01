@@ -21,10 +21,10 @@ function importOriginalImage() {
         key: keyName
     }
     const strRequest = JSON.stringify(request);
-    const encRequest = btoa(strRequest);
+    // const encRequest = btoa(strRequest);
     // Import the image data into the element
     $(`#img-original`)
-        .attr(`src`, `${appVariables.apiEndpoint}/${encRequest}`)
+        .attr(`src`, `${appVariables.apiEndpoint}/${keyName}`)
         .attr(`data-bucket`, bucketName)
         .attr(`data-key`, keyName);
 }
@@ -88,7 +88,7 @@ function getPreviewImage() {
     // Setup encoded request
     const str = JSON.stringify(request);
     // const enc = btoa(str);
-    const enc = `${keyName}`;
+    let enc = `${keyName}`;
     let urlParams = {};
     if (request.edits.resize != null) {
         if (request.edits.resize.width != null) {
@@ -106,6 +106,9 @@ function getPreviewImage() {
         if (request.edits.smartCrop.faceIndex != null) {
             urlParams.faceIndex = request.edits.smartCrop.faceIndex;
         }
+    }
+    if (Object.keys(urlParams).length > 0) {
+        enc += '?' + new URLSearchParams(urlParams).toString();
     }
     // Fill the preview image
     $(`#img-preview`).attr(`src`, `${appVariables.apiEndpoint}/${enc}`);
